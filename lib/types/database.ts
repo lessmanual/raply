@@ -212,6 +212,18 @@ export type Database = {
           total_spend: number | null
           updated_at: string
           user_id: string
+          share_token: string | null
+          share_token_expires_at: string | null
+          previous_date_from: string | null
+          previous_date_to: string | null
+          previous_spend: number | null
+          previous_impressions: number | null
+          previous_clicks: number | null
+          previous_conversions: number | null
+          previous_ctr: number | null
+          previous_cpc: number | null
+          previous_cpm: number | null
+          previous_roas: number | null
         }
         Insert: {
           ad_account_id: string
@@ -236,6 +248,18 @@ export type Database = {
           total_spend?: number | null
           updated_at?: string
           user_id: string
+          share_token?: string | null
+          share_token_expires_at?: string | null
+          previous_date_from?: string | null
+          previous_date_to?: string | null
+          previous_spend?: number | null
+          previous_impressions?: number | null
+          previous_clicks?: number | null
+          previous_conversions?: number | null
+          previous_ctr?: number | null
+          previous_cpc?: number | null
+          previous_cpm?: number | null
+          previous_roas?: number | null
         }
         Update: {
           ad_account_id?: string
@@ -260,6 +284,18 @@ export type Database = {
           total_spend?: number | null
           updated_at?: string
           user_id?: string
+          share_token?: string | null
+          share_token_expires_at?: string | null
+          previous_date_from?: string | null
+          previous_date_to?: string | null
+          previous_spend?: number | null
+          previous_impressions?: number | null
+          previous_clicks?: number | null
+          previous_conversions?: number | null
+          previous_ctr?: number | null
+          previous_cpc?: number | null
+          previous_cpm?: number | null
+          previous_roas?: number | null
         }
         Relationships: [
           {

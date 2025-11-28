@@ -147,7 +147,10 @@
       "reports": "Raporty",
       "integrations": "Integracje",
       "settings": "Ustawienia",
-      "admin": "Admin"
+      "admin": "Admin",
+      "collapse": "Zwiń",
+      "adminBadge": "Admin",
+      "signOut": "Wyloguj"
     },
     "home": {
       "welcome": "Witaj ponownie,",

@@ -1,0 +1,9 @@
+{
+  "accountId": "c46b949c-0e2a-4c07-8ba5-6be98fdcf40f",
+  "templateType": "sales",
+  "dateRange": {
+    "from": "2025-01-01T00:00:00Z",
+    "to": "2025-01-22T23:59:59Z"
+  },
+  "name": "Test Sales Report - January 2025"
+}

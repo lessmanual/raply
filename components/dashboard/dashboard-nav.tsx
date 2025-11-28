@@ -152,7 +152,7 @@ export function DashboardNav({ userEmail, isAdmin }: DashboardNavProps) {
             ) : (
               <>
                 <ChevronLeft className="mr-2 h-4 w-4" />
-                <span>Collapse</span>
+                <span>{t('collapse')}</span>
               </>
             )}
           </Button>
@@ -168,7 +168,7 @@ export function DashboardNav({ userEmail, isAdmin }: DashboardNavProps) {
               <div className="flex-1 overflow-hidden">
                 <p className="truncate text-sm font-medium">{userEmail}</p>
                 {isAdmin && (
-                  <p className="text-xs text-muted-foreground">Admin</p>
+                  <p className="text-xs text-muted-foreground">{t('adminBadge')}</p>
                 )}
               </div>
             </div>
@@ -189,10 +189,10 @@ export function DashboardNav({ userEmail, isAdmin }: DashboardNavProps) {
                 isCollapsed ? 'justify-center px-2' : 'justify-start'
               )}
               size="sm"
-              title={isCollapsed ? 'Sign Out' : undefined}
+              title={isCollapsed ? t('signOut') : undefined}
             >
               <LogOut className={cn('h-4 w-4', !isCollapsed && 'mr-2')} />
-              {!isCollapsed && 'Sign Out'}
+              {!isCollapsed && t('signOut')}
             </Button>
           </form>
         </div>

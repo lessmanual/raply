@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
+import { SupabaseClient } from '@supabase/supabase-js'
 import type {
   UserInsert,
   UserUpdate,
@@ -198,9 +199,12 @@ export async function createCampaignData(campaignData: CampaignDataInsert) {
   }
 }
 
-export async function bulkCreateCampaignData(campaignDataArray: CampaignDataInsert[]) {
+export async function bulkCreateCampaignData(
+  campaignDataArray: CampaignDataInsert[],
+  supabaseClient?: SupabaseClient
+) {
   try {
-    const supabase = await createClient()
+    const supabase = supabaseClient || await createClient()
 
     const { data, error } = await supabase
       .from('campaigns_data')

@@ -1,9 +1,12 @@
 /**
  * Google Ads API Wrapper
  * Documentation: https://developers.google.com/google-ads/api/docs/start
+ *
+ * API Version: v22 (updated October 2025)
+ * Previous: v17 (June 2024) - 4 major versions behind
  */
 
-const GOOGLE_ADS_API_VERSION = 'v17'
+const GOOGLE_ADS_API_VERSION = 'v22'
 const GOOGLE_ADS_API = `https://googleads.googleapis.com/${GOOGLE_ADS_API_VERSION}`
 
 export interface GoogleAdsCampaign {

@@ -147,7 +147,10 @@
       "reports": "Reports",
       "integrations": "Integrations",
       "settings": "Settings",
-      "admin": "Admin"
+      "admin": "Admin",
+      "collapse": "Collapse",
+      "adminBadge": "Admin",
+      "signOut": "Sign Out"
     },
     "home": {
       "welcome": "Welcome back,",
@@ -181,8 +184,20 @@
     },
     "reportWizard": {
       "heading": "Create New Report",
-      "subheading": "Select report template and ad account",
+      "subheading": "Generate a professional advertising report in 4 easy steps",
       "backToReports": "Back to Reports",
+      "step1Title": "Select Ad Account",
+      "step1Description": "Choose which advertising account to generate the report for",
+      "step2Title": "Choose Template",
+      "step2Description": "Select the type of report you want to create",
+      "step3Title": "Select Date Range",
+      "step3Description": "Choose the time period for your report",
+      "step4Title": "Review & Generate",
+      "step4Description": "Confirm your selections and generate the report",
+      "buttonPrevious": "Previous",
+      "buttonNext": "Next",
+      "buttonGenerate": "Generate Report",
+      "buttonGenerating": "Generating...",
       "comingSoonTitle": "Coming Soon",
       "comingSoonDescription": "Report creator wizard will be available in an upcoming update. For now, you can browse available templates.",
       "selectTemplateHeading": "Select Report Template",

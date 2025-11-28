@@ -251,7 +251,7 @@ WHERE schemaname = 'public';
 
 ### Admin Access
 
-Only `chudziszewski221@gmail.com` has admin role by default. To add more admins:
+Only `chudziszewski221[at]gmail[dot]com` has admin role by default. To add more admins:
 
 ```sql
 -- Add new admin (run in Supabase SQL Editor)

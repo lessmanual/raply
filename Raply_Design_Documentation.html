@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Raply - Design Documentation</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Raply - Design Documentation</h1>
+</header>
+<h1 id="raply---design-documentation">Raply - Design Documentation</h1>
+<h2 id="google-ads-api-integration">Google Ads API Integration</h2>
+<p><strong>Version:</strong> 1.0 <strong>Date:</strong> October 14, 2025
+<strong>Company:</strong> Less Manual AI (kontakt@lessmanual.ai)</p>
+<hr />
+<h2 id="product-overview">1. Product Overview</h2>
+<p><strong>Raply</strong> is a SaaS platform that automates advertising
+report generation for marketing agencies and businesses. The platform
+aggregates data from multiple advertising platforms (Google Ads, Meta
+Ads) and generates professional, AI-enhanced reports delivered via email
+or PDF download.</p>
+<h3 id="key-features">Key Features</h3>
+<ul>
+<li><strong>Multi-platform integration</strong>: Google Ads, Meta
+Ads</li>
+<li><strong>Automated report generation</strong>: Scheduled daily,
+weekly, or monthly reports</li>
+<li><strong>AI-powered insights</strong>: Claude API generates campaign
+descriptions and recommendations</li>
+<li><strong>Professional PDF export</strong>: Branded reports ready for
+client delivery</li>
+<li><strong>Email delivery</strong>: Automatic report distribution via
+Resend</li>
+</ul>
+<hr />
+<h2 id="google-ads-api-integration-1">2. Google Ads API Integration</h2>
+<h3 id="purpose">Purpose</h3>
+<p>Raply uses the Google Ads API <strong>exclusively for reading
+campaign performance data</strong>. We do NOT create, modify, or manage
+campaigns.</p>
+<h3 id="api-usage">API Usage</h3>
+<ul>
+<li><strong>Read-only access</strong> to campaign metrics</li>
+<li><strong>Data fetched</strong>:
+<ul>
+<li>Campaign names and IDs</li>
+<li>Performance metrics: impressions, clicks, conversions, cost, CTR,
+CPC</li>
+<li>Date-range filtered data</li>
+<li>Account information: name, currency, timezone</li>
+</ul></li>
+</ul>
+<h3 id="api-endpoints-used">API Endpoints Used</h3>
+<ol type="1">
+<li><code>customers:listAccessibleCustomers</code> - Get accessible
+customer accounts</li>
+<li><code>GoogleAdsService.SearchStream</code> - Fetch campaign data
+with GAQL queries</li>
+<li><code>CustomerService.GetCustomer</code> - Get account metadata</li>
+</ol>
+<h3 id="campaign-types-supported">Campaign Types Supported</h3>
+<ul>
+<li>Search campaigns</li>
+<li>Display campaigns</li>
+<li>Video campaigns</li>
+<li>Shopping campaigns</li>
+<li>Performance Max campaigns</li>
+<li>App campaigns</li>
+<li>Local campaigns</li>
+<li>Discovery campaigns</li>
+<li>Smart campaigns</li>
+</ul>
+<hr />
+<h2 id="user-flow">3. User Flow</h2>
+<h3 id="initial-setup">3.1 Initial Setup</h3>
+<pre><code>1. User signs up → Email verification
+2. Navigate to Integrations page
+3. Click &quot;Connect Google Ads&quot;
+4. OAuth 2.0 authentication with Google
+5. Grant read-only permissions (scope: https://www.googleapis.com/auth/adwords)
+6. Account connected → Data syncing begins</code></pre>
+<h3 id="report-generation">3.2 Report Generation</h3>
+<pre><code>1. User navigates to Reports → New Report
+2. Select connected Google Ads account
+3. Choose template type (Leads, Sales, Reach)
+4. Select date range (Last 7 days, Last 30 days, Custom)
+5. Preview report with live data
+6. Generate PDF or schedule email delivery</code></pre>
+<hr />
+<h2 id="technical-architecture">4. Technical Architecture</h2>
+<h3 id="frontend">Frontend</h3>
+<ul>
+<li><strong>Framework</strong>: Next.js 15 (App Router)</li>
+<li><strong>Language</strong>: TypeScript (strict mode)</li>
+<li><strong>Styling</strong>: Tailwind CSS</li>
+<li><strong>UI Components</strong>: Shadcn/ui (Radix UI primitives)</li>
+</ul>
+<h3 id="backend">Backend</h3>
+<ul>
+<li><strong>API Routes</strong>: Next.js API Routes</li>
+<li><strong>Authentication</strong>: Supabase Auth (OAuth 2.0)</li>
+<li><strong>Database</strong>: PostgreSQL (Supabase)</li>
+<li><strong>External APIs</strong>:
+<ul>
+<li>Google Ads API v22</li>
+<li>Meta Marketing API</li>
+<li>Claude API (Anthropic)</li>
+</ul></li>
+</ul>
+<h3 id="data-flow">Data Flow</h3>
+<pre><code>┌─────────────┐
+│   User      │
+└──────┬──────┘
+       │
+       ↓
+┌─────────────────────────┐
+│  Raply Web App          │
+│  (Next.js)              │
+└──────┬──────────────────┘
+       │
+       ↓
+┌─────────────────────────┐
+│  Google Ads API         │
+│  (Read-only)            │
+└──────┬──────────────────┘
+       │
+       ↓
+┌─────────────────────────┐
+│  Supabase Database      │
+│  (Store reports)        │
+└─────────────────────────┘</code></pre>
+<hr />
+<h2 id="security-privacy">5. Security &amp; Privacy</h2>
+<h3 id="data-handling">Data Handling</h3>
+<ul>
+<li><strong>OAuth tokens</strong>: Encrypted at rest in Supabase
+database</li>
+<li><strong>API requests</strong>: All requests over HTTPS</li>
+<li><strong>Data retention</strong>: Campaign data cached for 24 hours
+max</li>
+<li><strong>User data</strong>: Only accessible to account owner
+(Row-Level Security)</li>
+</ul>
+<h3 id="permissions">Permissions</h3>
+<ul>
+<li><strong>Google Ads API scope</strong>:
+<code>https://www.googleapis.com/auth/adwords</code> (read-only)</li>
+<li><strong>No write permissions</strong>: Raply cannot create, modify,
+or delete campaigns</li>
+<li><strong>User consent</strong>: Explicit OAuth consent screen before
+access</li>
+</ul>
+<hr />
+<h2 id="ui-screenshots">6. UI Screenshots</h2>
+<h3 id="integrations-page">6.1 Integrations Page</h3>
+<p>The main page where users connect their advertising accounts: -
+<strong>OAuth buttons</strong> for Google Ads and Meta Ads -
+<strong>Connected accounts</strong> summary with status badges -
+<strong>Disconnect functionality</strong> for account management</p>
+<h3 id="report-creator">6.2 Report Creator</h3>
+<p>Wizard-style interface for report creation: - <strong>Account
+selection</strong>: Choose from connected accounts - <strong>Template
+selection</strong>: Pre-built templates (Leads, Sales, Reach) -
+<strong>Date range picker</strong>: Flexible date selection -
+<strong>Preview mode</strong>: Live data preview before generation</p>
+<h3 id="report-preview">6.3 Report Preview</h3>
+<p>Professional report display: - <strong>Executive summary</strong>:
+AI-generated insights - <strong>Performance metrics</strong>: Key KPIs
+with visualizations - <strong>Campaign breakdown</strong>: Detailed
+campaign-level data - <strong>Export options</strong>: PDF download,
+email delivery</p>
+<hr />
+<h2 id="google-ads-api-compliance">7. Google Ads API Compliance</h2>
+<h3 id="read-only-operations">Read-only Operations</h3>
+<p>Raply performs <strong>ONLY read operations</strong>: - ✅ Fetch
+campaign performance data - ✅ Read account information - ✅ Query
+metrics for date ranges - ❌ Create campaigns - ❌ Modify campaigns - ❌
+Delete campaigns - ❌ Manage budgets - ❌ Change targeting</p>
+<h3 id="user-benefits">User Benefits</h3>
+<ol type="1">
+<li><strong>Time savings</strong>: Automate hours of manual reporting
+work</li>
+<li><strong>Multi-platform view</strong>: Combine Google Ads + Meta Ads
+data</li>
+<li><strong>AI insights</strong>: Claude-powered campaign
+recommendations</li>
+<li><strong>Professional output</strong>: Client-ready PDF reports</li>
+<li><strong>Scheduled delivery</strong>: Set it and forget it
+automation</li>
+</ol>
+<hr />
+<h2 id="support-contact">8. Support &amp; Contact</h2>
+<p><strong>Company</strong>: Less Manual AI <strong>Email</strong>:
+kontakt@lessmanual.ai <strong>Website</strong>: https://raply.vercel.app
+<strong>API Token</strong>: Developer token applied for Basic Access</p>
+<hr />
+<h2 id="future-enhancements">9. Future Enhancements</h2>
+<h3 id="planned-features">Planned Features</h3>
+<ul>
+<li>Additional platforms: TikTok Ads, LinkedIn Ads</li>
+<li>Custom report templates builder</li>
+<li>White-label reports for agencies</li>
+<li>Advanced analytics and forecasting</li>
+<li>Team collaboration features</li>
+</ul>
+<h3 id="google-ads-api-expansion">Google Ads API Expansion</h3>
+<ul>
+<li>Support for Shopping campaigns detail</li>
+<li>Ad group level reporting</li>
+<li>Keyword performance analysis</li>
+<li>Geographic performance breakdown</li>
+</ul>
+<hr />
+<p><strong>Document Version</strong>: 1.0 <strong>Last Updated</strong>:
+October 14, 2025 <strong>Status</strong>: Initial submission for Google
+Ads API Basic Access</p>
+</body>
+</html>

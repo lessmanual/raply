@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { Plus } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -10,6 +11,14 @@ interface FloatingActionButtonProps {
 }
 
 export function FloatingActionButton({ href, label = 'Create Report' }: FloatingActionButtonProps) {
+  const pathname = usePathname()
+
+  // Hide on /reports/new page (where wizard is active)
+  // Use endsWith to avoid false positives (e.g., /reports/news, /reports/newest)
+  if (pathname.endsWith('/reports/new') || pathname.includes('/reports/new/')) {
+    return null
+  }
+
   return (
     <Link href={href}>
       <button

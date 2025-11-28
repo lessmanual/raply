@@ -81,9 +81,9 @@ export async function GET(request: NextRequest) {
     // For now, we'll use a simple approach - user provides Customer ID manually
     // or we fetch it from Google Ads API
 
-    // Fetch accessible customers using Google Ads API
+    // Fetch accessible customers using Google Ads API (v22 - latest)
     const customersResponse = await fetch(
-      'https://googleads.googleapis.com/v17/customers:listAccessibleCustomers',
+      'https://googleads.googleapis.com/v22/customers:listAccessibleCustomers',
       {
         method: 'GET',
         headers: {
