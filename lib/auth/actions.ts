@@ -44,11 +44,14 @@ export async function signUp(credentials: SignUpInput) {
     const supabase = await createClient()
     const origin = (await headers()).get('origin')
 
+    // Use environment variable in production, fallback to origin header
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || origin || 'http://localhost:3000'
+
     const { data, error } = await supabase.auth.signUp({
       email: credentials.email,
       password: credentials.password,
       options: {
-        emailRedirectTo: `${origin}/auth/callback`,
+        emailRedirectTo: `${baseUrl}/auth/callback`,
         data: {
           full_name: credentials.email.split('@')[0], // Default name from email
         },
@@ -119,8 +122,11 @@ export async function requestPasswordReset(email: string) {
     const supabase = await createClient()
     const origin = (await headers()).get('origin')
 
+    // Use environment variable in production, fallback to origin header
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || origin || 'http://localhost:3000'
+
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${origin}/auth/reset-password`,
+      redirectTo: `${baseUrl}/auth/reset-password`,
     })
 
     if (error) {
@@ -247,10 +253,13 @@ export async function signInWithGoogle(locale: string) {
     const supabase = await createClient()
     const origin = (await headers()).get('origin')
 
+    // Use environment variable in production, fallback to origin header
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || origin || 'http://localhost:3000'
+
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${origin}/api/auth/callback?next=/${locale}/dashboard`,
+        redirectTo: `${baseUrl}/api/auth/callback?next=/${locale}/dashboard`,
         queryParams: {
           access_type: 'offline',
           prompt: 'consent',
