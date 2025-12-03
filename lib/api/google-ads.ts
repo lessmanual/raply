@@ -6,7 +6,7 @@
  * Previous: v17 (June 2024) - 4 major versions behind
  */
 
-const GOOGLE_ADS_API_VERSION = 'v22'
+const GOOGLE_ADS_API_VERSION = process.env.GOOGLE_ADS_API_VERSION || 'v22'
 const GOOGLE_ADS_API = `https://googleads.googleapis.com/${GOOGLE_ADS_API_VERSION}`
 
 export interface GoogleAdsCampaign {
@@ -291,5 +291,44 @@ export async function refreshGoogleToken(
   } catch (error) {
     console.error('Error refreshing Google token:', error)
     return null
+  }
+}
+
+/**
+ * Validate Google Ads Customer ID by attempting to fetch customer details
+ * Returns true if customer ID is valid and accessible, false otherwise
+ */
+export async function validateCustomerId(
+  customerId: string,
+  accessToken: string,
+  developerToken: string
+): Promise<boolean> {
+  try {
+    // Remove dashes if present (format: 1234567890)
+    const cleanCustomerId = customerId.replace(/-/g, '')
+
+    // Try to fetch customer details - if successful, customer ID is valid
+    const customer = await getGoogleAdsCustomer(
+      cleanCustomerId,
+      accessToken,
+      developerToken
+    )
+
+    return customer !== null
+  } catch (error: any) {
+    console.error('Customer ID validation failed:', error)
+
+    // Check for specific error codes
+    if (error.message?.includes('CUSTOMER_NOT_FOUND')) {
+      return false
+    }
+
+    if (error.message?.includes('PERMISSION_DENIED')) {
+      console.warn('Customer ID exists but access denied - likely valid but no permissions')
+      return false
+    }
+
+    // For other errors, consider it invalid
+    return false
   }
 }

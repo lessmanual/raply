@@ -3,7 +3,7 @@
  * Documentation: https://developers.facebook.com/docs/marketing-api
  */
 
-const META_API_VERSION = 'v18.0'
+const META_API_VERSION = process.env.META_GRAPH_API_VERSION || 'v18.0'
 const META_GRAPH_API = `https://graph.facebook.com/${META_API_VERSION}`
 
 export interface MetaCampaign {

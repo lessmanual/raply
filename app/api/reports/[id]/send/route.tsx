@@ -96,7 +96,7 @@ export async function POST(
     // Send email
     const resend = getResend()
     const { data, error } = await resend.emails.send({
-      from: 'Raply <onboarding@resend.dev>', // Use default Resend testing domain or configured domain
+      from: process.env.RESEND_FROM_EMAIL || 'Raply <noreply@raply.app>',
       to: validated.email,
       subject: `Your Raply Report: ${report.name}`,
       react: (

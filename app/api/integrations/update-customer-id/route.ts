@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
+import { validateCustomerId } from '@/lib/api/google-ads'
 
 const updateCustomerIdSchema = z.object({
   accountId: z.string().uuid(),
@@ -22,6 +23,55 @@ export async function POST(request: NextRequest) {
 
     if (authError || !user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    // Fetch ad account to get access token for validation
+    const { data: account, error: accountError } = await supabase
+      .from('ad_accounts')
+      .select('access_token, platform')
+      .eq('id', validated.accountId)
+      .eq('user_id', user.id)
+      .single()
+
+    if (accountError || !account) {
+      return NextResponse.json(
+        { error: 'Ad account not found' },
+        { status: 404 }
+      )
+    }
+
+    // Ensure it's a Google Ads account
+    if (account.platform !== 'google') {
+      return NextResponse.json(
+        { error: 'This endpoint is only for Google Ads accounts' },
+        { status: 400 }
+      )
+    }
+
+    // Validate customer ID with Google Ads API
+    const developerToken = process.env.GOOGLE_ADS_DEVELOPER_TOKEN
+    if (!developerToken) {
+      console.error('GOOGLE_ADS_DEVELOPER_TOKEN not configured')
+      return NextResponse.json(
+        { error: 'Google Ads API not configured' },
+        { status: 500 }
+      )
+    }
+
+    const isValid = await validateCustomerId(
+      validated.customerId,
+      account.access_token,
+      developerToken
+    )
+
+    if (!isValid) {
+      return NextResponse.json(
+        {
+          error: 'Invalid Google Ads Customer ID',
+          details: 'Customer ID not found or you don\'t have access to this account'
+        },
+        { status: 400 }
+      )
     }
 
     // Remove dashes from customer ID for storage (format: 1234567890)
