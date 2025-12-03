@@ -166,13 +166,27 @@
       "viewAllReportsButton": "View All Reports",
       "emptyStateHeading": "Start by connecting an ad account",
       "emptyStateDescription": "Connect your first Meta Ads or Google Ads account to start generating reports.",
-      "connectAccountButton": "Connect Account"
+      "connectAccountButton": "Connect Account",
+      "emptyStateNoAccountsTitle": "Connect your first ad account",
+      "emptyStateNoAccountsDescription": "Add a Meta Ads or Google Ads account to start generating reports.",
+      "emptyStateNoAccountsAction": "Connect Account",
+      "emptyStateNoReportsTitle": "Generate your first report",
+      "emptyStateNoReportsDescription": "Your accounts are connected. Time to create your first report!",
+      "emptyStateNoReportsAction": "Create Report"
     },
     "subscription": {
       "freePlanBanner": "You're on the free plan. Upgrade to unlock more reports and AI insights.",
       "upgradeBannerButton": "Upgrade Plan",
       "limitReached": "You've reached your plan's report limit. Upgrade to generate more reports.",
       "limitReachedButton": "View Plans"
+    },
+    "stats": {
+      "totalReports": "Total Reports",
+      "adAccounts": "Ad Accounts",
+      "thisMonth": "This Month",
+      "generatedReports": "Generated reports",
+      "connectedAccounts": "Connected accounts",
+      "reportsThisMonth": "Reports this month"
     },
     "reports": {
       "heading": "All Reports",
@@ -286,7 +300,16 @@
       "disconnectButton": "Disconnect",
       "needHelpTitle": "Need help?",
       "needHelpDescription": "View our documentation on connecting advertising accounts",
-      "viewDocumentationButton": "View Documentation"
+      "viewDocumentationButton": "View Documentation",
+      "selectAccountTitle": "Select {platform} Account",
+      "selectAccountDescription": "Choose ad accounts you want to connect to Raply",
+      "authenticationSuccessful": "Authentication successful",
+      "foundAccountsCount": "Found {count} ad accounts",
+      "manualSetupRequired": "Manual setup required",
+      "manualSetupDescription": "Could not automatically fetch accounts. Enter Customer ID manually.",
+      "selectAccountsLabel": "Select accounts to connect",
+      "note": "Note",
+      "multiAccountHelp": "You can connect multiple accounts and switch between them in the app."
     }
   }
 }

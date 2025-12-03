@@ -40,9 +40,10 @@ export function ReportCardV2({ report, locale }: ReportCardV2Props) {
   const platform = report.ad_account?.platform?.toLowerCase() || 'default'
   const colors = PLATFORM_COLORS[platform as keyof typeof PLATFORM_COLORS] || PLATFORM_COLORS.default
 
-  // Mock data - replace with real data when available
+  // AI insights availability
   const hasAI = true // Assume all reports have AI insights
-  const viewsCount = Math.floor(Math.random() * 50) + 10 // Mock views
+  // Use real view count from database, default to 0 if not available
+  const viewsCount = (report as any).view_count ?? 0
 
   return (
     <div

@@ -166,13 +166,27 @@
       "viewAllReportsButton": "Zobacz wszystkie raporty",
       "emptyStateHeading": "Zacznij od połączenia konta reklamowego",
       "emptyStateDescription": "Połącz swoje pierwsze konto Meta Ads lub Google Ads, aby zacząć generować raporty.",
-      "connectAccountButton": "Połącz konto"
+      "connectAccountButton": "Połącz konto",
+      "emptyStateNoAccountsTitle": "Połącz pierwsze konto reklamowe",
+      "emptyStateNoAccountsDescription": "Dodaj konto Meta Ads lub Google Ads aby zacząć generować raporty.",
+      "emptyStateNoAccountsAction": "Połącz konto",
+      "emptyStateNoReportsTitle": "Wygeneruj pierwszy raport",
+      "emptyStateNoReportsDescription": "Twoje konta są połączone. Czas na pierwszy raport!",
+      "emptyStateNoReportsAction": "Stwórz raport"
     },
     "subscription": {
       "freePlanBanner": "Jesteś na darmowym planie. Przejdź na wyższy plan, aby odblokować więcej raportów i analizy AI.",
       "upgradeBannerButton": "Przejdź na wyższy plan",
       "limitReached": "Osiągnąłeś limit raportów dla swojego planu. Przejdź na wyższy plan, aby generować więcej raportów.",
       "limitReachedButton": "Zobacz plany"
+    },
+    "stats": {
+      "totalReports": "Wszystkie raporty",
+      "adAccounts": "Konta reklamowe",
+      "thisMonth": "Ten miesiąc",
+      "generatedReports": "Wygenerowane raporty",
+      "connectedAccounts": "Połączone konta",
+      "reportsThisMonth": "Raporty w tym miesiącu"
     },
     "reports": {
       "heading": "Wszystkie raporty",
@@ -274,7 +288,16 @@
       "disconnectButton": "Odłącz",
       "needHelpTitle": "Potrzebujesz pomocy?",
       "needHelpDescription": "Zobacz naszą dokumentację dotyczącą łączenia kont reklamowych",
-      "viewDocumentationButton": "Zobacz dokumentację"
+      "viewDocumentationButton": "Zobacz dokumentację",
+      "selectAccountTitle": "Wybierz konto {platform}",
+      "selectAccountDescription": "Wybierz konta reklamowe które chcesz podłączyć do Raply",
+      "authenticationSuccessful": "Autentykacja zakończona pomyślnie",
+      "foundAccountsCount": "Znaleziono {count} kont reklamowych",
+      "manualSetupRequired": "Wymagana ręczna konfiguracja",
+      "manualSetupDescription": "Nie udało się automatycznie pobrać kont. Wprowadź Customer ID ręcznie.",
+      "selectAccountsLabel": "Wybierz konta do połączenia",
+      "note": "Uwaga",
+      "multiAccountHelp": "Możesz połączyć wiele kont i przełączać się między nimi w aplikacji."
     }
   }
 }

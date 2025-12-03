@@ -7,10 +7,11 @@ import { useRouter } from 'next/navigation'
 
 interface DisconnectButtonProps {
   platform: 'meta' | 'google'
+  accountId: string
   label: string
 }
 
-export function DisconnectButton({ platform, label }: DisconnectButtonProps) {
+export function DisconnectButton({ platform, accountId, label }: DisconnectButtonProps) {
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
@@ -27,7 +28,7 @@ export function DisconnectButton({ platform, label }: DisconnectButtonProps) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ platform }),
+        body: JSON.stringify({ platform, accountId }),
       })
 
       if (!response.ok) {

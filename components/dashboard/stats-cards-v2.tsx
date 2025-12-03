@@ -2,11 +2,24 @@
 
 import { FileText, Link as LinkIcon, TrendingUp } from 'lucide-react'
 import { StatCardV2 } from './stat-card-v2'
+import { useTranslations } from 'next-intl'
 
 interface StatsCardsV2Props {
   totalReports: number
   totalAccounts: number
   reportsThisMonth: number
+  reportsLastMonth: number
+}
+
+/**
+ * Calculate percentage change between current and previous values
+ * Returns null if there's no previous data to compare
+ */
+function calculateChange(current: number, previous: number): number | null {
+  if (previous === 0) {
+    return current > 0 ? 100 : null
+  }
+  return ((current - previous) / previous) * 100
 }
 
 // Mock sparkline data - later can be replaced with real historical data
@@ -36,34 +49,37 @@ export function StatsCardsV2({
   totalReports,
   totalAccounts,
   reportsThisMonth,
+  reportsLastMonth,
 }: StatsCardsV2Props) {
+  const t = useTranslations('dashboard.stats')
+
   const stats = [
     {
-      title: 'Total Reports',
+      title: t('totalReports'),
       value: totalReports,
-      description: 'Generated reports',
+      description: t('generatedReports'),
       icon: FileText,
       gradient: 'linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%)', // Blue gradient
-      change: 12.5,
-      sparklineData: generateSparklineData(totalReports, 'up'),
+      change: null, // Total reports don't have month-over-month comparison
+      sparklineData: [], // Hide sparkline until real historical data is available
     },
     {
-      title: 'Ad Accounts',
+      title: t('adAccounts'),
       value: totalAccounts,
-      description: 'Connected accounts',
+      description: t('connectedAccounts'),
       icon: LinkIcon,
       gradient: 'linear-gradient(135deg, #10b981 0%, #34d399 100%)', // Green gradient
-      change: 8.2,
-      sparklineData: generateSparklineData(totalAccounts, 'stable'),
+      change: null, // Accounts are persistent, no monthly change
+      sparklineData: [], // Hide sparkline until real historical data is available
     },
     {
-      title: 'This Month',
+      title: t('thisMonth'),
       value: reportsThisMonth,
-      description: 'Reports this month',
+      description: t('reportsThisMonth'),
       icon: TrendingUp,
       gradient: 'linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%)', // Purple gradient
-      change: 15.3,
-      sparklineData: generateSparklineData(reportsThisMonth, 'up'),
+      change: calculateChange(reportsThisMonth, reportsLastMonth),
+      sparklineData: [], // Hide sparkline until real historical data is available
     },
   ]
 

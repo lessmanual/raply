@@ -128,6 +128,11 @@ export default async function DashboardPage({
   // TODO: Replace with actual subscription check when Stripe is integrated
   const showFreePlanBanner = !admin
 
+  // Fetch stats to determine if we should show AI Insights
+  const { data: stats } = await getDashboardStats(user.id)
+  const hasAdAccounts = (stats?.totalAccounts ?? 0) > 0
+  const hasReports = (stats?.totalReports ?? 0) > 0
+
   return (
     <div className="space-y-8">
       {/* Welcome Header */}
@@ -147,29 +152,55 @@ export default async function DashboardPage({
         />
       )}
 
-      {/* Stats Cards */}
-      <Suspense fallback={<StatsCardsSkeleton />}>
-        <DashboardStats userId={user.id} locale={locale} />
-      </Suspense>
+      {/* Empty State: No Accounts */}
+      {!hasAdAccounts && (
+        <EmptyState
+          locale={locale}
+          title={t('emptyStateNoAccountsTitle')}
+          description={t('emptyStateNoAccountsDescription')}
+          actionLabel={t('emptyStateNoAccountsAction')}
+          actionHref="/integrations"
+        />
+      )}
 
-      {/* AI Insights Section */}
-      {!admin && <AIInsights />}
+      {/* Empty State: No Reports (but has accounts) */}
+      {hasAdAccounts && !hasReports && (
+        <EmptyState
+          locale={locale}
+          title={t('emptyStateNoReportsTitle')}
+          description={t('emptyStateNoReportsDescription')}
+          actionLabel={t('emptyStateNoReportsAction')}
+          actionHref="/reports/new"
+        />
+      )}
 
-      {/* Recent Reports */}
-      <div>
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-semibold">{t('recentReportsHeading')}</h2>
-          <Link href={`/${locale}/reports/new`}>
-            <Button>
-              <Plus className="mr-2 h-4 w-4" />
-              {t('createReportButton')}
-            </Button>
-          </Link>
-        </div>
-        <Suspense fallback={<ReportsListSkeleton />}>
-          <RecentReports userId={user.id} locale={locale} />
+      {/* Stats Cards - Only show if user has accounts */}
+      {hasAdAccounts && (
+        <Suspense fallback={<StatsCardsSkeleton />}>
+          <DashboardStats userId={user.id} locale={locale} />
         </Suspense>
-      </div>
+      )}
+
+      {/* AI Insights Section - Only show if user has accounts */}
+      {!admin && hasAdAccounts && <AIInsights hasAdAccounts={hasAdAccounts} hasReports={hasReports} />}
+
+      {/* Recent Reports - Only show if user has reports */}
+      {hasReports && (
+        <div>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-2xl font-semibold">{t('recentReportsHeading')}</h2>
+            <Link href={`/${locale}/reports/new`}>
+              <Button>
+                <Plus className="mr-2 h-4 w-4" />
+                {t('createReportButton')}
+              </Button>
+            </Link>
+          </div>
+          <Suspense fallback={<ReportsListSkeleton />}>
+            <RecentReports userId={user.id} locale={locale} />
+          </Suspense>
+        </div>
+      )}
     </div>
   )
 }

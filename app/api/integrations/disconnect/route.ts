@@ -4,6 +4,7 @@ import { z } from 'zod'
 
 const disconnectSchema = z.object({
   platform: z.enum(['meta', 'google']),
+  accountId: z.string().uuid(),
 })
 
 export async function POST(request: NextRequest) {
@@ -23,10 +24,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    // Delete ad account from database
+    // Delete specific ad account from database
     const { error: deleteError } = await supabase
       .from('ad_accounts')
       .delete()
+      .eq('id', validated.accountId)
       .eq('user_id', user.id)
       .eq('platform', validated.platform)
 

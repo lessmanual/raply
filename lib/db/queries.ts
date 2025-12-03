@@ -218,11 +218,28 @@ export async function getDashboardStats(userId: string) {
       return { data: null, error: monthError }
     }
 
+    // Get reports from last month for comparison
+    const lastMonthStart = new Date(now.getFullYear(), now.getMonth() - 1, 1)
+    const lastMonthEnd = new Date(now.getFullYear(), now.getMonth(), 0, 23, 59, 59)
+
+    const { count: reportsLastMonth, error: lastMonthError } = await supabase
+      .from('reports')
+      .select('*', { count: 'exact', head: true })
+      .eq('user_id', userId)
+      .gte('created_at', lastMonthStart.toISOString())
+      .lte('created_at', lastMonthEnd.toISOString())
+
+    if (lastMonthError) {
+      console.error('Error fetching last month reports:', lastMonthError)
+      // Don't return error, just use 0 for comparison
+    }
+
     return {
       data: {
         totalReports: totalReports ?? 0,
         totalAccounts: totalAccounts ?? 0,
         reportsThisMonth: reportsThisMonth ?? 0,
+        reportsLastMonth: reportsLastMonth ?? 0,
       },
       error: null,
     }

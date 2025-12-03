@@ -14,7 +14,7 @@ interface StatCardV2Props {
   description: string
   icon: LucideIcon
   gradient: string
-  change?: number
+  change?: number | null
   sparklineData?: SparklineDataPoint[]
 }
 
@@ -24,11 +24,11 @@ export function StatCardV2({
   description,
   icon: Icon,
   gradient,
-  change = 0,
+  change = null,
   sparklineData = [],
 }: StatCardV2Props) {
-  const isPositive = change > 0
-  const hasChange = change !== 0
+  const isPositive = change !== null && change > 0
+  const hasChange = change !== null && change !== 0
 
   return (
     <div
@@ -62,7 +62,7 @@ export function StatCardV2({
             <Icon className="w-6 h-6 text-white drop-shadow-sm" />
           </div>
 
-          {hasChange && (
+          {hasChange && change !== null && (
             <div
               className={cn(
                 'flex items-center space-x-1 px-3 py-1.5 rounded-full',
@@ -77,7 +77,7 @@ export function StatCardV2({
               ) : (
                 <TrendingDown className="w-3 h-3" />
               )}
-              <span>{Math.abs(change)}%</span>
+              <span>{Math.abs(change).toFixed(1)}%</span>
             </div>
           )}
         </div>

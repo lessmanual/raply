@@ -44,11 +44,38 @@ export default async function ReportDetailPage({
     `)
     .eq('id', id)
     .eq('user_id', user.id)
-    .single()
+    .maybeSingle()
 
-  if (error || !report) {
+  if (error) {
+    console.error('Report fetch error:', {
+      reportId: id,
+      userId: user.id,
+      error: error.message,
+      code: error.code,
+      details: error.details
+    })
     notFound()
   }
+
+  if (!report) {
+    console.error('Report not found:', {
+      reportId: id,
+      userId: user.id
+    })
+    notFound()
+  }
+
+  // Increment view count (fire and forget - don't block page load)
+  supabase.rpc('increment_report_views', { report_id: id }).then(({ error }) => {
+    if (error) {
+      console.error('Failed to increment view count:', error)
+    }
+  })
+
+  // Handle missing ad_account (if deleted)
+  const accountName = report.ad_account?.name || 'Deleted Account'
+  const platform = report.ad_account?.platform || 'unknown'
+  const currency = report.ad_account?.currency || 'USD'
 
   // Fetch campaign-level data
   const { data: campaignData } = await getCampaignDataByReport(id)
@@ -88,13 +115,13 @@ export default async function ReportDetailPage({
               <div className="flex items-center gap-2">
                 <Badge
                   variant={
-                    report.ad_account?.platform === 'meta' ? 'default' : 'secondary'
+                    platform === 'meta' ? 'default' : 'secondary'
                   }
                 >
-                  {report.ad_account?.platform === 'meta' ? 'Meta Ads' : 'Google Ads'}
+                  {platform === 'meta' ? 'Meta Ads' : platform === 'google' ? 'Google Ads' : 'Unknown'}
                 </Badge>
                 <span>•</span>
-                <span>{report.ad_account?.name}</span>
+                <span>{accountName}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Badge
@@ -157,7 +184,7 @@ export default async function ReportDetailPage({
               cpc={report.average_cpc || 0}
               cpm={report.average_cpm || 0}
               roas={report.roas}
-              currency={report.ad_account?.currency || 'USD'}
+              currency={currency}
               previousSpend={report.previous_spend}
               previousImpressions={report.previous_impressions}
               previousClicks={report.previous_clicks}
@@ -184,7 +211,7 @@ export default async function ReportDetailPage({
               <h2 className="text-2xl font-bold mb-4">Performance Charts</h2>
               <ReportCharts
                 campaigns={campaignData}
-                currency={report.ad_account?.currency || 'USD'}
+                currency={currency}
               />
             </div>
           )}
@@ -195,7 +222,7 @@ export default async function ReportDetailPage({
               <h2 className="text-2xl font-bold mb-4">Campaign Performance</h2>
               <ReportCampaignsTable
                 campaigns={campaignData}
-                currency={report.ad_account?.currency || 'USD'}
+                currency={currency}
               />
             </div>
           )}

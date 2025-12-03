@@ -186,6 +186,7 @@ export default async function IntegrationsPage({
                     {integration.connected ? (
                       <DisconnectButton
                         platform={integration.id as 'meta' | 'google'}
+                        accountId={accounts!.find(acc => acc.platform === integration.id)!.id}
                         label={t('disconnectButton')}
                       />
                     ) : integration.id === 'meta' ? (
