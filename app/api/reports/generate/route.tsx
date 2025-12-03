@@ -7,6 +7,8 @@ import { fetchCampaignData } from '@/lib/api/campaign-data'
 import { generateAIInsights } from '@/lib/api/ai-insights'
 import { bulkCreateCampaignData } from '@/lib/db/mutations'
 import type { CampaignDataInsert } from '@/lib/types'
+import { Resend } from 'resend'
+import { ReportNotificationEmail } from '@/components/emails/report-notification-email'
 
 /**
  * POST /api/reports/generate
@@ -156,6 +158,101 @@ export async function POST(request: NextRequest) {
 }
 
 /**
+ * Send email notification when report processing completes
+ */
+async function sendReportNotification(
+  reportId: string,
+  userId: string,
+  status: 'completed' | 'failed',
+  errorMessage?: string
+) {
+  try {
+    const supabase = createAdminClient()
+
+    // Get user email
+    const { data, error: userError } = await supabase.auth.admin.getUserById(userId)
+
+    if (userError || !data?.user?.email) {
+      console.error(`[Report ${reportId}] Failed to get user email:`, userError)
+      return
+    }
+
+    const userEmail = data.user.email
+
+    // Get report details
+    const { data: report, error: reportError } = await supabase
+      .from('reports')
+      .select('name, ad_account_id, date_from, date_to')
+      .eq('id', reportId)
+      .single()
+
+    if (reportError || !report) {
+      console.error(`[Report ${reportId}] Failed to get report details:`, reportError)
+      return
+    }
+
+    // Get ad account platform
+    const { data: account, error: accountError } = await supabase
+      .from('ad_accounts')
+      .select('platform')
+      .eq('id', report.ad_account_id)
+      .single()
+
+    if (accountError || !account) {
+      console.error(`[Report ${reportId}] Failed to get account details:`, accountError)
+      return
+    }
+
+    // Initialize Resend
+    const resend = new Resend(process.env.RESEND_API_KEY)
+
+    // Format date range
+    const dateFrom = new Date(report.date_from).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    })
+    const dateTo = new Date(report.date_to).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    })
+    const dateRange = `${dateFrom} - ${dateTo}`
+
+    // Create report URL
+    const reportUrl = `${process.env.NEXT_PUBLIC_APP_URL}/reports/${reportId}`
+
+    // Send email
+    const { data: emailData, error } = await resend.emails.send({
+      from: process.env.RESEND_FROM_EMAIL!,
+      to: userEmail,
+      subject:
+        status === 'completed'
+          ? `Your report is ready: ${report.name}`
+          : `Report generation failed: ${report.name}`,
+      react: (
+        <ReportNotificationEmail
+          reportName={report.name}
+          reportUrl={reportUrl}
+          platform={account.platform === 'meta' ? 'Meta Ads' : 'Google Ads'}
+          dateRange={dateRange}
+          status={status}
+          errorMessage={errorMessage}
+        />
+      ),
+    })
+
+    if (error) {
+      console.error(`[Report ${reportId}] Failed to send email:`, error)
+    } else {
+      console.log(`[Report ${reportId}] Notification email sent to ${userEmail}`)
+    }
+  } catch (error) {
+    console.error(`[Report ${reportId}] Error sending notification:`, error)
+  }
+}
+
+/**
  * Process report asynchronously
  *
  * This function runs in the background after the API returns.
@@ -171,9 +268,23 @@ async function processReport(
   reportData: z.infer<typeof createReportSchema>
 ) {
   const supabase = createAdminClient()
+  let userId: string | null = null
 
   try {
     console.log(`[Report ${reportId}] Starting processing...`)
+
+    // Get userId from report for email notification
+    const { data: reportRecord, error: reportError } = await supabase
+      .from('reports')
+      .select('user_id')
+      .eq('id', reportId)
+      .single()
+
+    if (reportError || !reportRecord) {
+      console.error(`[Report ${reportId}] Failed to get report user:`, reportError)
+    } else {
+      userId = reportRecord.user_id
+    }
 
     // Convert dates to YYYY-MM-DD format
     const dateFrom = new Date(reportData.dateRange.from).toISOString().split('T')[0]
@@ -315,6 +426,11 @@ async function processReport(
     }
 
     console.log(`[Report ${reportId}] Processing completed successfully`)
+
+    // Send success notification email
+    if (userId) {
+      await sendReportNotification(reportId, userId, 'completed')
+    }
   } catch (error: any) {
     console.error(`[Report ${reportId}] Processing failed:`, error)
 
@@ -325,5 +441,15 @@ async function processReport(
         status: 'failed',
       })
       .eq('id', reportId)
+
+    // Send failure notification email
+    if (userId) {
+      await sendReportNotification(
+        reportId,
+        userId,
+        'failed',
+        error?.message || 'Unknown error occurred'
+      )
+    }
   }
 }

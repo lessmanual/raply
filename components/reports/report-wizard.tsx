@@ -77,8 +77,47 @@ export function ReportWizard({ locale, accounts }: ReportWizardProps) {
     }
   }
 
+  /**
+   * Validate date range before generating report
+   * Returns error message if validation fails, null if valid
+   */
+  const validateDateRange = (dateRange: { from: string; to: string }): string | null => {
+    const fromDate = new Date(dateRange.from)
+    const toDate = new Date(dateRange.to)
+    const now = new Date()
+
+    // Check if end date is in the future
+    if (toDate > now) {
+      return 'End date cannot be in the future'
+    }
+
+    // Check if start date is after end date
+    if (fromDate > toDate) {
+      return 'Start date must be before end date'
+    }
+
+    // Check if range exceeds 365 days
+    const daysDiff = Math.ceil((toDate.getTime() - fromDate.getTime()) / (1000 * 60 * 60 * 24))
+    if (daysDiff > 365) {
+      return 'Date range cannot exceed 365 days'
+    }
+
+    return null
+  }
+
   const handleSubmit = async () => {
     if (!canProceed()) return
+
+    // Validate date range
+    if (formData.dateRange) {
+      const validationError = validateDateRange(formData.dateRange)
+      if (validationError) {
+        toast.error('Invalid date range', {
+          description: validationError,
+        })
+        return
+      }
+    }
 
     try {
       setIsSubmitting(true)
