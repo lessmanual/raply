@@ -48,6 +48,9 @@ export async function middleware(request: NextRequest) {
       }
     }
     // If rate limiter not configured, allow the request (development mode)
+    
+    // API routes should not be handled by i18n middleware
+    return await updateSession(request)
   }
 
   // First, handle i18n routing
