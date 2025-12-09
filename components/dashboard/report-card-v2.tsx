@@ -17,22 +17,22 @@ const PLATFORM_COLORS = {
   facebook: {
     bg: 'bg-[#1877F2]',
     text: 'text-white',
-    badge: 'bg-[#1877F2]/10 text-[#1877F2] border-[#1877F2]/20',
+    badge: 'bg-white/20 text-white border-white/30 backdrop-blur-md',
   },
   meta: {
     bg: 'bg-[#1877F2]',
     text: 'text-white',
-    badge: 'bg-[#1877F2]/10 text-[#1877F2] border-[#1877F2]/20',
+    badge: 'bg-white/20 text-white border-white/30 backdrop-blur-md',
   },
   google: {
     bg: 'bg-[#4285F4]',
     text: 'text-white',
-    badge: 'bg-[#4285F4]/10 text-[#4285F4] border-[#4285F4]/20',
+    badge: 'bg-white/20 text-white border-white/30 backdrop-blur-md',
   },
   default: {
     bg: 'bg-primary',
     text: 'text-primary-foreground',
-    badge: 'bg-primary/10 text-primary border-primary/20',
+    badge: 'bg-white/20 text-white border-white/30 backdrop-blur-md',
   },
 }
 

@@ -41,27 +41,27 @@ export function Features() {
   ]
 
   return (
-    <section id="features" className="bg-muted/30 py-20 sm:py-32">
+    <section id="features" className="bg-muted/20 py-24 sm:py-32 border-t border-border/40">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="mb-16 text-center">
-          <h2 className="mb-4 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+        <div className="mb-16 text-center max-w-3xl mx-auto">
+          <h2 className="mb-6 font-serif-display text-4xl text-foreground sm:text-5xl">
             {t('heading')}{' '}
-            <span className="text-primary">{t('headingHighlight')}</span>
+            <span className="text-primary italic">{t('headingHighlight')}</span>
           </h2>
-          <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
+          <p className="text-lg text-muted-foreground leading-relaxed">
             {t('subheading')}
           </p>
         </div>
 
         {/* Features Grid */}
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((feature, index) => {
             const Icon = feature.icon
             return (
-              <Card key={index} className="border-border bg-card">
+              <Card key={index} className="group relative overflow-hidden border border-border bg-card transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5">
                 <CardHeader>
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/5 transition-colors group-hover:bg-primary/10">
                     <Icon className="h-6 w-6 text-primary" />
                   </div>
                   <CardTitle className="text-xl font-semibold text-foreground">
@@ -69,7 +69,7 @@ export function Features() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">{feature.description}</p>
+                  <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
                 </CardContent>
               </Card>
             )

@@ -137,7 +137,7 @@ export default async function DashboardPage({
     <div className="space-y-8">
       {/* Welcome Header */}
       <div>
-        <h1 className="text-4xl font-bold text-foreground">
+        <h1 className="text-4xl font-bold text-black dark:text-white">
           {t('welcome')} {user.email?.split('@')[0]}!
         </h1>
       </div>

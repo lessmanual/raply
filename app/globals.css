@@ -1,166 +1,154 @@
 @import "tailwindcss";
 
-/* Raply Design System - Based on Logo Colors */
-:root {
-  /* Base Colors */
-  --background: 0 0% 100%; /* white */
-  --foreground: 213 74% 26%; /* #0E3B7A - Deep Navy Blue from logo */
+@theme {
+  /* Raply Design System: "Editorial Tech" */
+  
+  /* Colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  
+  /* Radius */
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
 
-  /* Card */
-  --card: 0 0% 100%; /* white */
-  --card-foreground: 213 74% 26%; /* Deep Navy Blue */
+  /* Fonts */
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-serif: var(--font-serif), serif; /* Instrument Serif */
+  --font-mono: var(--font-mono), monospace; /* JetBrains Mono */
+
+  /* Animations */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from { height: 0; }
+    to { height: var(--radix-accordion-content-height); }
+  }
+  @keyframes accordion-up {
+    from { height: var(--radix-accordion-content-height); }
+    to { height: 0; }
+  }
+}
+
+/* Base Design Tokens */
+:root {
+  /* Base Colors - "Paper White" & "Deep Charcoal" */
+  --background: oklch(0.98 0.005 100); /* #F9F9F7 - Warm Paper White */
+  --foreground: oklch(0.20 0.01 100); /* #1A1A1A - Deep Charcoal */
+
+  /* Card - Clean, slightly brighter than bg */
+  --card: oklch(1.0 0 0); /* Pure White */
+  --card-foreground: oklch(0.20 0.01 100);
 
   /* Popover */
-  --popover: 0 0% 100%; /* white */
-  --popover-foreground: 213 74% 26%; /* Deep Navy Blue */
+  --popover: oklch(1.0 0 0);
+  --popover-foreground: oklch(0.20 0.01 100);
 
-  /* Primary - Ocean Blue from logo */
-  --primary: 197 79% 42%; /* #1589B2 - Ocean Blue */
-  --primary-foreground: 0 0% 100%; /* white */
+  /* Primary - "Raply Blue" */
+  --primary: oklch(0.42 0.13 265.0); /* #0E3B7A - Raply Dark Blue */
+  --primary-foreground: oklch(1.0 0 0);
 
-  /* Secondary - Cyan Blue */
-  --secondary: 191 77% 44%; /* #17A1C3 - Cyan Blue */
-  --secondary-foreground: 0 0% 100%; /* white */
+  /* Secondary - "Soft Clay" */
+  --secondary: oklch(0.94 0.02 90.0);
+  --secondary-foreground: oklch(0.20 0.01 100);
 
-  /* Muted - Light Blue tint */
-  --muted: 197 79% 96%; /* Very light blue */
-  --muted-foreground: 213 74% 26%; /* Deep Navy Blue */
+  /* Muted */
+  --muted: oklch(0.96 0.005 100);
+  --muted-foreground: oklch(0.55 0.01 100);
 
-  /* Accent - Bright Cyan from logo */
-  --accent: 188 79% 49%; /* #1AC9E0 - Bright Cyan */
-  --accent-foreground: 0 0% 100%; /* white */
+  /* Accent - "Deep Forest Green" (Growth/Finance) */
+  --accent: oklch(0.35 0.08 145.0);
+  --accent-foreground: oklch(0.98 0.005 100);
 
   /* Destructive */
-  --destructive: 0 84% 60%;
-  --destructive-foreground: 0 0% 100%;
+  --destructive: oklch(0.6 0.18 25.0);
+  --destructive-foreground: oklch(1.0 0 0);
 
-  /* Border & Input */
-  --border: 197 79% 90%; /* Light blue border */
-  --input: 197 79% 92%; /* Light blue input */
-  --ring: 197 79% 42%; /* Ocean Blue for focus rings */
+  /* Borders - Subtle */
+  --border: oklch(0.92 0.005 100);
+  --input: oklch(0.92 0.005 100);
+  --ring: oklch(0.42 0.13 265.0);
 
-  /* Border Radius */
-  --radius: 0.5rem; /* 8px */
-
-  /* Chart colors - Logo gradient */
-  --chart-1: 197 79% 42%; /* Ocean Blue #1589B2 */
-  --chart-2: 191 77% 44%; /* Cyan Blue #17A1C3 */
-  --chart-3: 188 79% 49%; /* Bright Cyan #1AC9E0 */
-  --chart-4: 213 74% 26%; /* Deep Navy #0E3B7A */
-  --chart-5: 197 79% 34%; /* Darker Ocean Blue */
+  --radius: 0.6rem;
 }
 
 .dark {
-  /* Dark Mode with Raply Colors */
-  --background: 213 74% 10%; /* Very dark navy */
-  --foreground: 188 79% 80%; /* Light cyan */
+  /* Dark Mode - "Midnight Navy" */
+  --background: oklch(0.15 0.02 260.0);
+  --foreground: oklch(0.94 0.01 260.0);
 
-  --card: 213 74% 12%; /* Dark navy card */
-  --card-foreground: 188 79% 80%; /* Light cyan text */
+  --card: oklch(0.18 0.02 260.0);
+  --card-foreground: oklch(0.94 0.01 260.0);
 
-  --popover: 213 74% 12%;
-  --popover-foreground: 188 79% 80%;
+  --popover: oklch(0.18 0.02 260.0);
+  --popover-foreground: oklch(0.94 0.01 260.0);
 
-  --primary: 188 79% 49%; /* Bright Cyan #1AC9E0 */
-  --primary-foreground: 213 74% 10%; /* Dark navy text on cyan */
+  /* Keep Raply Blue visible but adjusted for dark mode */
+  --primary: oklch(0.42 0.13 265.0);
+  --primary-foreground: oklch(1.0 0 0);
 
-  --secondary: 197 79% 42%; /* Ocean Blue */
-  --secondary-foreground: 0 0% 98%;
+  --secondary: oklch(0.25 0.02 260.0);
+  --secondary-foreground: oklch(0.94 0.01 260.0);
 
-  --muted: 213 74% 16%; /* Darker navy muted */
-  --muted-foreground: 197 79% 70%; /* Light ocean blue */
+  --muted: oklch(0.22 0.02 260.0);
+  --muted-foreground: oklch(0.70 0.01 260.0);
 
-  --accent: 191 77% 44%; /* Cyan Blue */
-  --accent-foreground: 0 0% 98%;
+  --accent: oklch(0.35 0.08 145.0);
+  --accent-foreground: oklch(0.98 0.005 100);
 
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 0 0% 98%;
+  --destructive: oklch(0.4 0.18 25.0);
+  --destructive-foreground: oklch(0.98 0.005 100);
 
-  --border: 213 74% 20%; /* Dark navy border */
-  --input: 213 74% 18%; /* Dark navy input */
-  --ring: 188 79% 49%; /* Bright cyan ring */
-
-  /* Chart colors - same as light mode */
-  --chart-1: 197 79% 42%; /* Ocean Blue */
-  --chart-2: 191 77% 44%; /* Cyan Blue */
-  --chart-3: 188 79% 49%; /* Bright Cyan */
-  --chart-4: 213 74% 26%; /* Deep Navy */
-  --chart-5: 197 79% 34%; /* Darker Ocean Blue */
+  --border: oklch(0.25 0.02 260.0);
+  --input: oklch(0.25 0.02 260.0);
+  --ring: oklch(0.42 0.13 265.0);
 }
 
+/* Utilities */
+@layer utilities {
+  .font-serif-display {
+    font-family: var(--font-serif);
+    letter-spacing: -0.02em;
+  }
+  
+  .font-mono-numbers {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Global Reset overrides */
 body {
-  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
-  background-color: hsl(var(--background));
-  color: hsl(var(--foreground));
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* ============================================ */
-/* Professional Design Enhancement */
-/* Glass Morphism & Gradients from Figma Make */
-/* ============================================ */
-
-:root {
-  /* Glass Morphism - Light Mode */
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.2);
-  --color-glass-bg: var(--glass-bg);
-  --color-glass-border: var(--glass-border);
-
-  /* Gradient Colors - OKLCH format for better color accuracy */
-  --color-red-100: oklch(0.936 0.032 17.717);
-  --color-red-200: oklch(0.885 0.062 18.334);
-  --color-red-500: oklch(0.637 0.237 25.331);
-  --color-red-800: oklch(0.444 0.177 26.899);
-  --color-green-100: oklch(0.962 0.044 156.743);
-  --color-green-200: oklch(0.925 0.084 155.995);
-  --color-green-500: oklch(0.723 0.219 149.579);
-  --color-green-600: oklch(0.627 0.194 149.214);
-  --color-green-800: oklch(0.448 0.119 151.328);
-  --color-blue-500: oklch(0.623 0.214 259.815);
-  --color-blue-600: oklch(0.546 0.245 262.881);
-  --color-purple-500: oklch(0.627 0.265 303.9);
-  --color-purple-600: oklch(0.558 0.288 302.321);
-  --color-pink-500: oklch(0.656 0.241 354.308);
-  --color-black: #000;
-  --color-white: #fff;
-}
-
-.dark {
-  /* Glass Morphism - Dark Mode */
-  --glass-bg: rgba(30, 41, 59, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --color-glass-bg: var(--glass-bg);
-  --color-glass-border: var(--glass-border);
-}
-
-/* Glass Morphism Utility Classes */
-.glass {
-  background: var(--color-glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--color-glass-border);
-}
-
-.glass-intense {
-  background: var(--color-glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--color-glass-border);
-}
-
-/* Gradient Mesh Background - Raply Colors */
-.gradient-mesh {
-  background:
-    radial-gradient(circle at 20% 80%, rgba(14, 59, 122, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(21, 137, 178, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(26, 201, 224, 0.08) 0%, transparent 50%);
-}
-
-.dark .gradient-mesh {
-  background:
-    radial-gradient(circle at 20% 80%, rgba(21, 137, 178, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(26, 201, 224, 0.12) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(14, 59, 122, 0.1) 0%, transparent 50%);
+  font-feature-settings: "rlig" 1, "calt" 1;
 }

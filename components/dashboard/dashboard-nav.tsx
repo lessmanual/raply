@@ -125,7 +125,7 @@ export function DashboardNav({ userEmail, isAdmin }: DashboardNavProps) {
                   isCollapsed ? 'justify-center' : 'gap-3',
                   isActive
                     ? 'bg-primary text-primary-foreground'
-                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                    : 'text-zinc-600 hover:bg-zinc-100 hover:text-black dark:text-zinc-300 dark:hover:bg-zinc-800 dark:hover:text-white'
                 )}
                 title={isCollapsed ? item.label : undefined}
               >
@@ -137,13 +137,13 @@ export function DashboardNav({ userEmail, isAdmin }: DashboardNavProps) {
         </nav>
 
         {/* Collapse Toggle Button */}
-        <div className="border-t p-4">
+        <div className="border-t p-4 border-zinc-200 dark:border-zinc-800">
           <Button
             onClick={toggleCollapsed}
             variant="ghost"
             size="sm"
             className={cn(
-              'w-full justify-center',
+              'w-full justify-center text-zinc-600 hover:text-black hover:bg-zinc-100 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-zinc-800',
               !isCollapsed && 'justify-start'
             )}
           >
@@ -159,16 +159,16 @@ export function DashboardNav({ userEmail, isAdmin }: DashboardNavProps) {
         </div>
 
         {/* User Section */}
-        <div className="border-t p-4">
+        <div className="border-t p-4 border-zinc-200 dark:border-zinc-800">
           {!isCollapsed && (
             <div className="mb-3 flex items-center gap-3 px-3">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-medium text-primary-foreground">
                 {userEmail?.[0]?.toUpperCase()}
               </div>
               <div className="flex-1 overflow-hidden">
-                <p className="truncate text-sm font-medium">{userEmail}</p>
+                <p className="truncate text-sm font-medium text-zinc-900 dark:text-zinc-100">{userEmail}</p>
                 {isAdmin && (
-                  <p className="text-xs text-muted-foreground">{t('adminBadge')}</p>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400">{t('adminBadge')}</p>
                 )}
               </div>
             </div>

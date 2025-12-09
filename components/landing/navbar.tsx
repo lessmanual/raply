@@ -12,14 +12,14 @@ export function Navbar() {
   const t = useTranslations('navbar')
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
-        <Link href="/" className="flex items-center">
+        <Link href="/" className="flex items-center gap-2 group">
           <img
             src="/images/raply-logo.svg"
             alt="Raply"
-            className="h-10 w-auto"
+            className="h-8 w-auto transition-transform group-hover:scale-105"
           />
         </Link>
 
@@ -48,10 +48,10 @@ export function Navbar() {
         {/* Right Side: Language Switcher + CTA Buttons */}
         <div className="flex items-center space-x-4">
           <LanguageSwitcher />
-          <Button asChild variant="outline" size="default">
+          <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex text-muted-foreground hover:text-foreground">
             <Link href={`/${locale}/signin`}>{t('login')}</Link>
           </Button>
-          <Button asChild size="default">
+          <Button asChild size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm">
             <Link href={`/${locale}/signup`}>{t('startFree')}</Link>
           </Button>
         </div>

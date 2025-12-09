@@ -62,7 +62,7 @@ export function Pricing() {
         t('plan3Feature7'),
       ],
       cta: t('plan3Cta'),
-      ctaVariant: 'outline' as const,
+      ctaVariant: 'default' as const, // Changed to default (filled) for highlighted
       highlighted: true,
     },
     {
@@ -87,45 +87,53 @@ export function Pricing() {
   ]
 
   return (
-    <section id="pricing" className="bg-muted/30 py-20 sm:py-32">
+    <section id="pricing" className="bg-background py-24 sm:py-32 border-t border-border/40">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="mb-16 text-center">
-          <h2 className="mb-4 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+        <div className="mb-16 text-center max-w-3xl mx-auto">
+          <h2 className="mb-6 font-serif-display text-4xl text-foreground sm:text-5xl">
             {t('heading')}
           </h2>
-          <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
+          <p className="text-lg text-muted-foreground">
             {t('subheading')}
           </p>
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 items-start">
           {plans.map((plan, index) => (
             <Card
               key={index}
-              className={`relative border ${
+              className={`relative transition-all duration-300 ${
                 plan.highlighted
-                  ? 'border-primary shadow-lg ring-2 ring-primary/20'
-                  : 'border-border'
-              } bg-card`}
+                  ? 'border-primary bg-card shadow-xl shadow-primary/10 scale-105 z-10'
+                  : 'border-border bg-muted/20 hover:border-primary/30 hover:bg-card'
+              }`}
             >
+              {plan.highlighted && (
+                <div className="absolute -top-4 left-0 right-0 flex justify-center">
+                    <span className="bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
+                        Most Popular
+                    </span>
+                </div>
+              )}
+
               <CardHeader className="pb-8 pt-8">
                 <CardTitle className="text-center">
-                  <div className="mb-2 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                  <div className="mb-4 text-sm font-bold uppercase tracking-widest text-primary">
                     {plan.name}
                   </div>
                   <div className="flex items-baseline justify-center">
-                    <span className="text-5xl font-extrabold text-foreground">
-                      {plan.price}
+                    <span className="text-5xl font-mono-numbers font-bold text-foreground tracking-tight">
+                      {plan.price === 0 ? 'Free' : plan.price}
                     </span>
                     {plan.period && (
-                      <span className="ml-1 text-lg text-muted-foreground">
+                      <span className="ml-1 text-lg text-muted-foreground font-normal">
                         {t('currency')}{plan.period}
                       </span>
                     )}
                   </div>
-                  <p className="mt-3 text-sm text-muted-foreground">
+                  <p className="mt-4 text-sm text-muted-foreground leading-relaxed px-2">
                     {plan.description}
                   </p>
                 </CardTitle>
@@ -134,17 +142,18 @@ export function Pricing() {
               <CardContent>
                 <Button
                   asChild
-                  variant={plan.ctaVariant}
-                  className="mb-6 w-full"
-                  size="lg"
+                  variant={plan.ctaVariant === 'default' ? 'default' : 'outline'}
+                  className={`mb-8 w-full h-11 ${plan.highlighted ? 'bg-primary hover:bg-primary/90' : ''}`}
                 >
                   <Link href={`/${locale}/signup`}>{plan.cta}</Link>
                 </Button>
 
-                <ul className="space-y-3">
+                <ul className="space-y-4">
                   {plan.features.map((feature, featureIndex) => (
                     <li key={featureIndex} className="flex items-start">
-                      <Check className="mr-3 h-5 w-5 flex-shrink-0 text-primary" />
+                      <div className="mr-3 mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-primary/10 shrink-0">
+                        <Check className="h-3 w-3 text-primary" />
+                      </div>
                       <span className="text-sm text-muted-foreground">
                         {feature}
                       </span>
@@ -157,12 +166,12 @@ export function Pricing() {
         </div>
 
         {/* Enterprise CTA */}
-        <div className="mt-12 text-center">
+        <div className="mt-16 text-center p-8 bg-muted/30 rounded-2xl border border-border">
           <p className="text-muted-foreground">
             {t('enterpriseText')}{' '}
             <Link
               href="mailto:contact@raply.app"
-              className="font-semibold text-primary hover:underline"
+              className="font-serif-display text-xl text-foreground hover:text-primary transition-colors ml-2 border-b border-primary/30 hover:border-primary"
             >
               {t('enterpriseLink')}
             </Link>{' '}

@@ -27,7 +27,7 @@ export default async function DashboardLayout({
   const admin = await isAdmin()
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen font-sans antialiased">
       {/* Sidebar Navigation */}
       <DashboardNav userEmail={user.email || ''} isAdmin={admin} />
 
